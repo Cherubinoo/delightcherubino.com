@@ -18,6 +18,7 @@ def seed_data():
             "approach": "I believe in:\n* Building solutions that are practical and usable\n* Focusing on real-world impact over theoretical perfection\n* Learning by building and experimenting\n* Continuously improving systems through iteration and feedback",
             "leadership": "As Vice President of my department, I actively:\n* Lead and coordinate technical initiatives\n* Work closely with teams on project development\n* Encourage collaborative problem-solving\n* Help create opportunities for students to build and innovate",
             "current_focus": "Right now, I am focused on:\n* Building scalable AI-driven platforms\n* Developing student-centric tools and applications\n* Improving real-time system performance\n* Exploring advanced system design and architecture",
+            "resume": "resumes/delight_resume.pdf",
         }
     )
 
