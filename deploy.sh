@@ -19,6 +19,9 @@ $VENV/python "$BACKEND_DIR/manage.py" migrate --noinput
 echo "==> Collecting static files..."
 $VENV/python "$BACKEND_DIR/manage.py" collectstatic --noinput
 
+echo "==> Seeding database..."
+$VENV/python "$BACKEND_DIR/seed.py" || echo "Warning: Seeding failed"
+
 echo "==> Installing frontend dependencies..."
 npm install --prefix "$FRONTEND_DIR" --silent
 
