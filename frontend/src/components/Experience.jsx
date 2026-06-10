@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 
 const Experience = () => {
   const [experiences, setExperiences] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/experience/')
+    api.get('/experience/')
       .then(res => setExperiences(res.data))
       .catch(err => console.error("Error fetching experience", err));
   }, []);

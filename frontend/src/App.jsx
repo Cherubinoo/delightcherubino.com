@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react';
-import axios from 'axios';
+import api from './api';
 
 // Components
 import Hero from './components/Hero';
@@ -19,7 +19,7 @@ const MainPortfolio = ({ activeSection, setActiveSection, theme, toggleTheme }) 
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/profile/')
+    api.get('/profile/')
       .then(res => {
         if (res.data.length > 0) setProfile(res.data[0]);
       })

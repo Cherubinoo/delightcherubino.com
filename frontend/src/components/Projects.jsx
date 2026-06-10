@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Code, X, Briefcase, ArrowUpRight } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 
 const ProjectCard = ({ project, index, setSelectedProject }) => {
   return (
@@ -60,7 +60,7 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/projects/')
+    api.get('/projects/')
       .then(res => {
         setProjects(res.data.filter(p => p.category === 'work'));
       })

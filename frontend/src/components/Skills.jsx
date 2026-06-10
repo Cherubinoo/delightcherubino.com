@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../api';
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/skills/')
+    api.get('/skills/')
       .then(res => setSkills(res.data))
       .catch(err => console.error("Error fetching skills", err));
   }, []);
