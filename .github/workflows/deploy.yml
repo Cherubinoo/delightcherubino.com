@@ -1,4 +1,4 @@
-name: Deploy to Production
+name: CI/CD Pipeline
 
 on:
   push:
@@ -6,8 +6,50 @@ on:
       - main
 
 jobs:
-  deploy:
+  # ── Stage 1: CI ─────────────────────────────────────────────────────────────
+  ci:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Frontend checks
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # Backend checks
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: |
+          pip install -r requirements.txt
+
+      - name: Check Django syntax
+        working-directory: ./backend
+        run: |
+          python -m compileall . -q
+
+  # ── Stage 2: CD ─────────────────────────────────────────────────────────────
+  cd:
+    name: Deploy to Production
     runs-on: self-hosted
+    needs: ci
 
     steps:
       - name: Checkout code
@@ -37,5 +79,5 @@ jobs:
           STATIC_ROOT=/home/administrator/prod/delightcherubino/backend/staticfiles
           EOF
 
-      - name: Run deploy script
+      - name: Deploy
         run: /home/administrator/prod/delightcherubino/deploy.sh
